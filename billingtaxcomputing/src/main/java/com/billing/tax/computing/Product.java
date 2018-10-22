@@ -24,6 +24,10 @@ public class Product {
         this.type = type;
     }
 
+    public BigDecimal getPrix() {
+        return prix;
+    }
+
     public void setPrix(BigDecimal prix) {
         this.prix = prix;
     }

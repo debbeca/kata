@@ -16,8 +16,8 @@ public class TaxComputingSteps implements En {
     private Product product;
 
     public TaxComputingSteps() {
-        Given("^Un produit \"([^\"]*)\" de type \"([^\"]*)\"$", (String libelle, ProductType type) -> {
-            product = new Product(libelle,type);
+        Given("^Un produit \"([^\"]*)\" de type \"([^\"]*)\"$", (String libelle, String type) -> {
+            product = new Product(libelle, ProductType.fromName(type));
         });
         When("^j'achete le produit à \"([^\"]*)\"$", (BigDecimal price) -> {
             product.setPrix(price);
