@@ -1,5 +1,6 @@
 package bdd.acceptance;
 
+import com.billing.tax.computing.Bill;
 import com.billing.tax.computing.CartRepository;
 import com.billing.tax.computing.Product;
 import cucumber.api.DataTable;
@@ -34,10 +35,8 @@ public class BillingSteps implements En {
 
 
         Then("^je paie (\\d+),(\\d+)$", (Integer arg0, Integer arg1) -> {
-            BigDecimal somme = BigDecimal.valueOf(arg0).add(BigDecimal.valueOf(arg1 / 100))   ;
-            BigDecimal total  = cartRepository.getCartProducts().stream()
-                    .map(product-> product.computeTax().add(product.getPrix()))
-                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+            BigDecimal somme = BigDecimal.valueOf(arg0).add(BigDecimal.valueOf(arg1.doubleValue()/100))   ;
+            BigDecimal total = Bill.computeTotalPrice(cartRepository.getCartProducts());
             Assert.assertEquals(somme,total );
         });
 
